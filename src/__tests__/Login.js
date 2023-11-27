@@ -32,8 +32,10 @@ describe("Given that I am a user on login page", () => {
       document.body.innerHTML = LoginUI();
 
       const inputEmailUser = screen.getByTestId("employee-email-input");
-      fireEvent.change(inputEmailUser, { target: { value: "pasunemail" } });
-      expect(inputEmailUser.value).toBe("pasunemail");
+      fireEvent.change(inputEmailUser, {
+        target: { value: "employee-email-input" },
+      });
+      expect(inputEmailUser.value).toBe("employee-email-input");
 
       const inputPasswordUser = screen.getByTestId("employee-password-input");
       fireEvent.change(inputPasswordUser, { target: { value: "azerty" } });
@@ -142,8 +144,10 @@ describe("Given that I am a user on login page", () => {
       document.body.innerHTML = LoginUI();
 
       const inputEmailUser = screen.getByTestId("admin-email-input");
-      fireEvent.change(inputEmailUser, { target: { value: "pasunemail" } });
-      expect(inputEmailUser.value).toBe("pasunemail");
+      fireEvent.change(inputEmailUser, {
+        target: { value: "admin-email-input" },
+      });
+      expect(inputEmailUser.value).toBe("admin-email-input");
 
       const inputPasswordUser = screen.getByTestId("admin-password-input");
       fireEvent.change(inputPasswordUser, { target: { value: "azerty" } });
@@ -163,8 +167,8 @@ describe("Given that I am a user on login page", () => {
       document.body.innerHTML = LoginUI();
       const inputData = {
         type: "Admin",
-        email: "johndoe@email.com",
-        password: "azerty",
+        email: "admin@test.tld",
+        password: "admin",
         status: "connected",
       };
 
