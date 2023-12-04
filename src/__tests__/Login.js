@@ -33,9 +33,9 @@ describe("Given that I am a user on login page", () => {
 
       const inputEmailUser = screen.getByTestId("employee-email-input");
       fireEvent.change(inputEmailUser, {
-        target: { value: "employee-email-input" },
+        target: { value: "employee" },
       });
-      expect(inputEmailUser.value).toBe("employee-email-input");
+      expect(inputEmailUser.value).toBe("employee");
 
       const inputPasswordUser = screen.getByTestId("employee-password-input");
       fireEvent.change(inputPasswordUser, { target: { value: "azerty" } });
@@ -54,8 +54,8 @@ describe("Given that I am a user on login page", () => {
     test("Then I should be identified as an Employee in app", () => {
       document.body.innerHTML = LoginUI();
       const inputData = {
-        email: "johndoe@email.com",
-        password: "azerty",
+        email: "employee@test.tld",
+        password: "employee",
       };
 
       const inputEmailUser = screen.getByTestId("employee-email-input");
