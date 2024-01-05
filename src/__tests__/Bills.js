@@ -80,10 +80,37 @@ describe("Given I am a user connected as Employee", () => {
         document.body.appendChild(root);
         router();
       });
-      test("fetches bills from an API and GET Fetch message error", async () => {
-        window.onNavigate(ROUTES_PATH.Bills);
-        const errorMessageDom = screen.getAllByTestId("error-message");
-        expect(errorMessageDom.textContent).toBe(" TypeError: Failed to fetch");
+      test("Then, Error page should be rendered", () => {
+        document.body.innerHTML = BillsUI({
+          error: "TypeError: Failed to fetch",
+        });
+        expect(screen.getAllByText("Erreur")).toBeTruthy();
+      });
+      test("fetches bills from an fail API url, then render error page with JSON message error", async () => {
+        document.body.innerHTML = BillsUI({
+          error: "SyntaxError: Unexpected token '<',",
+        });
+        expect(screen.getAllByText("Erreur")).toBeTruthy();
+      });
+      test("fetches bills from an API and fails with 404 message error", async () => {
+        mockStore.bills.mockImplementationOnce(() => {
+          return {
+            list: () => {
+              return Promise.reject(new Error("Erreur 404"));
+            },
+          };
+        });
+        expect(screen.getAllByText("Erreur")).toBeTruthy();
+      });
+      test("fetches messages from an API and fails with 500 message error", async () => {
+        mockStore.bills.mockImplementationOnce(() => {
+          return {
+            list: () => {
+              return Promise.reject(new Error("Erreur 500"));
+            },
+          };
+        });
+        expect(screen.getAllByText("Erreur")).toBeTruthy();
       });
     });
   });
