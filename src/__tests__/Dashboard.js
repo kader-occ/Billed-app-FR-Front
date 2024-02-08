@@ -350,7 +350,7 @@ describe("Given I am a user connected as Admin", () => {
             },
           };
         });
-        window.onNavigate(ROUTES_PATH.Bills);
+        window.onNavigate(ROUTES_PATH.Dashboard);
         await new Promise(process.nextTick);
         const message = await screen.getByText(/Erreur 404/);
         expect(message).toBeTruthy();
