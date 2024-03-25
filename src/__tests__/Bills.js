@@ -15,6 +15,10 @@ import Dashboard, { cards, filteredBills } from "../containers/Dashboard.js";
 import DashboardUI from "../views/DashboardUI.js";
 import userEvent from "@testing-library/user-event";
 import Bills from "../containers/Bills.js";
+import LoadingPage from "../views/LoadingPage.js";
+import ErrorPage from "../views/ErrorPage.js";
+
+jest.mock("../app/Store.js", () => mockStore);
 
 describe("Given I am connected as an employee", () => {
   describe("When I am on Bills Page", () => {
@@ -35,7 +39,6 @@ describe("Given I am connected as an employee", () => {
       window.onNavigate(ROUTES_PATH.Bills);
       await waitFor(() => screen.getByTestId("icon-window"));
       const windowIcon = screen.getByTestId("icon-window");
-      //to-do write expect expression
       //check la propriété CSS active-icon
       expect(windowIcon.classList.contains("active-icon")).toBe(true);
     });
@@ -49,6 +52,59 @@ describe("Given I am connected as an employee", () => {
       const antiChrono = (a, b) => a - b;
       const datesSorted = [...dates].sort(antiChrono);
       expect(dates).toEqual(datesSorted);
+    });
+  });
+  describe("When I click on New Bill Button", () => {
+    test("Then I should be sent on New Bill form", () => {
+      const onNavigate = (pathname) => {
+        document.body.innerHTML = ROUTES({ pathname });
+      };
+
+      Object.defineProperty(window, "localStorage", {
+        value: localStorageMock,
+      });
+      window.localStorage.setItem(
+        "user",
+        JSON.stringify({
+          type: "Employee",
+        })
+      );
+      const bills = new Bills({
+        document,
+        onNavigate,
+        store: mockStore,
+        localStorage: window.localStorage,
+      });
+
+      document.body.innerHTML = BillsUI({ data: bills });
+
+      const buttonNewBill = screen.getByRole("button", {
+        name: /nouvelle note de frais/i,
+      });
+      expect(buttonNewBill).toBeTruthy();
+      const handleClickNewBill = jest.fn(bills.handleClickNewBill);
+      buttonNewBill.addEventListener("click", handleClickNewBill);
+      userEvent.click(buttonNewBill);
+      expect(handleClickNewBill).toHaveBeenCalled();
+    });
+  });
+
+  describe("When I went on Bills page and it is loading", () => {
+    test("Then, Loading page should be rendered", () => {
+      document.body.innerHTML = BillsUI({ loading: true });
+      const html = LoadingPage();
+      document.body.innerHTML = html;
+      expect(screen.getAllByText("Loading...")).toBeTruthy();
+    });
+  });
+
+  describe("When I am on Bills page but back-end send an error message", () => {
+    test("Then, Error page should be rendered", () => {
+      document.body.innerHTML = BillsUI({ error: "error message" });
+      const error = "Erreur";
+      const html = ErrorPage(error);
+      document.body.innerHTML = html;
+      expect(screen.getAllByText(error)).toBeTruthy();
     });
   });
 });
