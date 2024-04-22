@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/share/yarn/bin/yarn.js outdated --json
+  /usr/local/bin/node /usr/share/yarn/bin/yarn.js info --json
 
 PATH: 
   /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/directory:/home/kader/Android/Sdk/emulator:/home/kader/Android/Sdk/tools:/home/kader/Android/Sdk/tools/bin:/home/kader/Android/Sdk/platform-tools:/home/kader/Android/Sdk/build-tools/33.0.2:/opt/gradle/bin
@@ -14,13 +14,9 @@ Platform:
   linux x64
 
 Trace: 
-  SyntaxError: Invalid value type 1348:0 in /home/kader/www/formationReactJS/Projet_9_Debuggez_tester_SaaS_RH/billApp/Billed-app-FR-Front/yarn.lock
-      at Parser.unexpected (/usr/share/yarn/lib/cli.js:63491:11)
-      at Parser.parse (/usr/share/yarn/lib/cli.js:63619:16)
-      at Parser.parse (/usr/share/yarn/lib/cli.js:63596:26)
-      at parse (/usr/share/yarn/lib/cli.js:63696:21)
-      at module.exports.exports.default (/usr/share/yarn/lib/cli.js:63258:96)
-      at Function.<anonymous> (/usr/share/yarn/lib/cli.js:3068:63)
+  TypeError: Cannot read properties of null (reading '1')
+      at parsePackageName (/usr/share/yarn/lib/cli.js:97199:29)
+      at Object.<anonymous> (/usr/share/yarn/lib/cli.js:84761:90)
       at Generator.next (<anonymous>)
       at step (/usr/share/yarn/lib/cli.js:310:30)
       at /usr/share/yarn/lib/cli.js:321:13
