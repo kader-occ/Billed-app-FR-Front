@@ -21,10 +21,10 @@ const row = (bill) => {
 };
 
 const rows = (data) => {
-  /* Fix le bug Issue 1*/
+  console.log(data);
   return data && data.length
     ? data
-        .sort((a, b) => (a.date < b.date ? 1 : -1))
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
         .map((bill) => row(bill))
         .join("")
     : "";

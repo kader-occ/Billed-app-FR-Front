@@ -49,8 +49,8 @@ describe("When I am on NewBill Page", () => {
       fireEvent.change(inputFile, {
         target: {
           files: [
-            new File(["document.jpg"], "document.jpg", {
-              type: "document/jpg",
+            new File(["document.png"], "document.png", {
+              type: "document/png",
             }),
           ],
         },

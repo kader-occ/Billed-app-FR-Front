@@ -42,12 +42,11 @@ export default class Bills {
         .list()
         .then((snapshot) => {
           /* Fixe le bug Issue 1 */
-          /* console.log(snapshot)
-        snapshot.sort((a, b) => (new Date(b.date)-new Date(a.date)))
-        console.log(snapshot) */
+          console.log(snapshot);
+          snapshot.sort((a, b) => new Date(b.date) - new Date(a.date));
+          console.log(snapshot);
 
-          /* Fix aussi le bug Issue 1 */
-          /* snapshot.sort((a, b) => (a.date < b.date ? 1 : -1)); */
+          snapshot.sort((a, b) => (a.date < b.date ? 1 : -1));
 
           const bills = snapshot.map((doc) => {
             try {
